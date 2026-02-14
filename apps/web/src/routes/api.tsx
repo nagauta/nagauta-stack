@@ -14,9 +14,11 @@ const createExampleSchema = z.object({
 app.get("/examples", async (c) => {
 	const items = await db.select().from(examples);
 	return c.html(
-		items.map((item) => (
-			<ExampleItem key={item.id} id={item.id} title={item.title} />
-		)),
+		<>
+			{items.map((item) => (
+				<ExampleItem key={item.id} id={item.id} title={item.title} />
+			))}
+		</>,
 	);
 });
 
