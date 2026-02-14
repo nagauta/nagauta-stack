@@ -1,0 +1,24 @@
+# Dependencies
+node_modules
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Build Outputs
+dist
+apps/web/public/styles.css
+
+# Debug
+npm-debug.log*
+
+# Misc
+.DS_Store
+*.pem
