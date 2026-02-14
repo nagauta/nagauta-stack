@@ -115,3 +115,16 @@
 - [x] Renovate 設定
 - [x] CLAUDE.md
 - [x] .claude/skills/commit + .claude/agents/
+
+### 9. DB周りの整備 (PR #2)
+
+- DB接続をトップレベルの即時初期化から `getDb()` による遅延初期化に変更
+  - DATABASE_URL 未設定時にサーバー起動がクラッシュする問題を修正
+- Seed スクリプト (`db:seed`) を追加
+  - dotenv を使って `apps/web/.env` を自動読み込み
+  - `pnpm --filter @nagauta-stack/web db:seed` で実行可能
+- `.env` は Turborepo 公式推奨に従い各app (`apps/web/`) に配置
+  - ルートの `.env.example` は削除
+- 初回マイグレーションファイルを生成・コミット
+- Biome の ignore に `apps/web/drizzle` (自動生成ファイル) を追加
+- README を追加 (技術スタック、セットアップ手順、コマンド一覧)
