@@ -1,7 +1,7 @@
 {
-  "extends": "@nagauta-stack/config/typescript/base.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["src"]
+	"extends": "@nagauta-stack/config/typescript/base.json",
+	"compilerOptions": {
+		"outDir": "dist"
+	},
+	"include": ["src"]
 }
