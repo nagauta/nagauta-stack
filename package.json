@@ -1,0 +1,17 @@
+{
+  "name": "nagauta-stack",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "turbo": "^2.8.8",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
