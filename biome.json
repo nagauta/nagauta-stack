@@ -20,6 +20,12 @@
 		"indentStyle": "tab"
 	},
 	"files": {
-		"ignore": ["node_modules", "dist", "public/styles.css", ".turbo"]
+		"ignore": [
+			"node_modules",
+			"dist",
+			"public/styles.css",
+			".turbo",
+			"apps/web/drizzle"
+		]
 	}
 }

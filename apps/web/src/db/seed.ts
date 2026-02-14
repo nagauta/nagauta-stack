@@ -14,11 +14,13 @@ const db = drizzle(client);
 async function seed() {
 	console.log("Seeding...");
 
-	await db.insert(examples).values([
-		{ title: "Example 1" },
-		{ title: "Example 2" },
-		{ title: "Example 3" },
-	]);
+	await db
+		.insert(examples)
+		.values([
+			{ title: "Example 1" },
+			{ title: "Example 2" },
+			{ title: "Example 3" },
+		]);
 
 	console.log("Seeding done.");
 }
