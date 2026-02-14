@@ -14,6 +14,7 @@ coverage
 
 # Build Outputs
 dist
+apps/web/public/styles.css
 
 # Debug
 npm-debug.log*
