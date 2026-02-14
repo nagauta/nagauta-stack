@@ -19,6 +19,13 @@ apps/web/public/styles.css
 # Debug
 npm-debug.log*
 
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/*.tfvars
+terraform/crash.log
+
 # Misc
 .DS_Store
 *.pem
