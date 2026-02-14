@@ -2,37 +2,81 @@
 
 日付: 2026-02-14
 
-## やったこと
+## 会話の流れ
 
-- テンプレートレポジトリの目的・技術スタックを決定
-- Turborepo + pnpm でモノレポを構築
-- Hono の最小限のアプリを apps/web に作成
-- docs/ の構成を決定 (plan, architecture, log)
+### 1. 目的の整理
 
-## 意思決定の経緯
+- 最初は「Claude の知見と MVP を作るテンプレートレポジトリ」として出発
+- 何度か推敲して「個人開発のベースとなるテンプレートレポジトリ」に落ち着いた
+- start.md に目的・技術スタック・意思決定の背景・補足の4セクションだけ書く方針
+- 「無駄だと思うところを3つ挙げて」で不要なセクションを削っていった
 
-### 技術スタック
+### 2. 技術スタックの選定
 
-- フロントは htmx に決定。MVPはCRUD中心なのでSPAは不要という判断
-- React も検討したが、htmx の「サーバーがHTML返すだけ」のシンプルさを優先
-- DB・デプロイ先はテンプレートでは固定しない方針だったが、PostgreSQL + Drizzle ORM + Docker に決定
-- Biome, Lefthook, Vitest + Playwright, GitHub Actions, Renovate, Knip も含める
+最初に大枠を決めた:
+- MVP種類 → フルスタック全部入り
+- フロント → Hono + htmx (最初はこの組み合わせで即決)
+- バックエンド → 最初は Vercel + Supabase だったが「どっちでもいい」に変更
+- Claude知見 → CLAUDE.md テンプレート
 
-### モノレポ構成
+その後「できるだけ最小限にしたい、クラウドとかSaaSはマジでどっちでもいい」という方針で:
+- DB・認証・デプロイ先はテンプレートでは固定しない → 認証もデプロイも削除
+- 最終的に DB は PostgreSQL + Drizzle ORM + Docker に決定
+
+追加で決めたもの:
+- Biome (linter / formatter)
+- Lefthook (git hooks)
+- Vitest + Playwright (テスト)
+- GitHub Actions (CI/CD)
+- Renovate (依存更新)
+- Knip (未使用検出)
+- Zod (バリデーション)
+
+### 3. htmx を本当に使うかの議論
+
+「なぜ Hono + htmx か」を納得いくまでディスカッション:
+- 「MVPは検証すべき課題を最小で構築し検証できる成果物。不要なものは消すべき」
+- 「Next.js は重たいが固い。UIは React だけでいいだろう。バックエンドは Hono のような軽量FWでいい」
+- React (Vite) vs htmx を比較した結果、htmx に決定
+- 理由: MVPはCRUD中心、サーバーがHTML返すだけで十分、クライアントJSのビルドが不要
+
+### 4. モノレポ構成
 
 - 最小構成を選択: apps/web + packages/config
 - DB層も web の中に置く。必要になったら切り出す
+- npx create-turbo@latest で /tmp に生成 → 必要なファイルだけ持ってきた
+- Next.js / ESLint 関連は全部捨てて Hono + Biome 用にカスタマイズ
 
-### docs構成
+### 5. docs 構成
 
-- adr/ は plan/ に含められるので廃止
-- plan/ に計画・意思決定を、log/ に会話ログを置く
+最初の案:
+- docs/adr/ (意思決定記録)
+- docs/architecture/ (アーキテクチャ)
+- docs/log/ (作業ログ)
+
+変遷:
+- log/ → plan/ に変更。「planをどんどん残したい」
+- adr/ → plan/ に含められるので廃止
+- architecture/ → README に書くので廃止
+- log/ を復活。会話ログの置き場所として
+
+最終形:
+- docs/plan/ — 計画・意思決定
+- docs/log/ — 会話ログ
+
+### 6. ファイル移動
+
+- start.md → docs/plan/0001-initial-stack.md に移動
 
 ## 没にしたもの
 
-- Supabase → DB・認証をテンプレートで固定しない方針に変更 → 最終的にPostgreSQL + Drizzle ORMに決定
+- Supabase (Auth含む) → テンプレートでは固定しない → PostgreSQL + Drizzle ORM に
 - changeset → npm公開しないので不要
 - start.md をルートに置く → docs/plan/ に移動
+- docs/adr/ → plan/ でカバーできる
+- docs/architecture/ → README に書く
+- 認証をテンプレートに含める → プロジェクトごとに決める
+- デプロイ先をテンプレートで固定する → プロジェクトごとに決める
 
 ## 残作業
 
