@@ -25,7 +25,9 @@
 			"dist",
 			"public/styles.css",
 			".turbo",
-			"apps/web/drizzle"
+			"apps/web/drizzle",
+			"terraform",
+			".claude"
 		]
 	}
 }
