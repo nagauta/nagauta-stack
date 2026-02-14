@@ -29,7 +29,6 @@
 - Vitest + Playwright (テスト)
 - GitHub Actions (CI/CD)
 - Renovate (依存更新)
-- Knip (未使用検出)
 - Zod (バリデーション)
 
 ### 3. htmx を本当に使うかの議論
@@ -68,6 +67,28 @@
 
 - start.md → docs/plan/0001-initial-stack.md に移動
 
+### 7. 実装フェーズ
+
+以下の順で実装:
+1. Turborepo + pnpm モノレポの骨組み
+2. .claude/skills/commit と .claude/agents/ を別レポからコピー
+3. htmx, Tailwind CSS, Drizzle ORM, Zod, Docker を一括導入
+4. Biome 設定 + Lefthook (pre-push) + Vitest + Playwright
+5. GitHub Actions CI ワークフロー + Renovate 設定
+6. CLAUDE.md 作成 (推奨方式に従い53行で簡潔に)
+
+実装中の修正:
+- Biome のフォーマット (スペース→タブ) を自動修正
+- JSX を含むファイルの拡張子を .ts → .tsx に変更
+- Fragment 周りの型エラーと lint エラーを調整
+- non-null assertion を明示的なチェックに置き換え
+- Lefthook を pre-commit → pre-push に変更 (commit が重くなるため)
+
+### 8. スタック見直し
+
+- Knip を追加したが「MVPのスターターにはいらない」と判断して削除
+- Biome がファイル単位の未使用検出をカバーしているため、プロジェクト横断のKnipは育ってからで十分
+
 ## 没にしたもの
 
 - Supabase (Auth含む) → テンプレートでは固定しない → PostgreSQL + Drizzle ORM に
@@ -77,16 +98,20 @@
 - docs/architecture/ → README に書く
 - 認証をテンプレートに含める → プロジェクトごとに決める
 - デプロイ先をテンプレートで固定する → プロジェクトごとに決める
+- Knip → MVPスターターには不要。プロジェクトが育ってから追加
 
-## 残作業
+## 完了した項目
 
-- htmx, Tailwind CSS の導入
-- PostgreSQL + Drizzle ORM + Docker の構築
-- Zod の導入
-- Biome 設定ファイル作成
-- Lefthook 設定
-- Vitest + Playwright の導入
-- GitHub Actions の設定
-- Renovate の設定
-- Knip の設定
-- CLAUDE.md の作成
+- [x] Turborepo + pnpm モノレポ構築
+- [x] Hono アプリ (apps/web)
+- [x] htmx (CDN読み込み + サンプルCRUD)
+- [x] Tailwind CSS v4
+- [x] PostgreSQL + Drizzle ORM + Docker
+- [x] Zod バリデーション
+- [x] Biome (lint / format)
+- [x] Lefthook (pre-push)
+- [x] Vitest + Playwright
+- [x] GitHub Actions CI
+- [x] Renovate 設定
+- [x] CLAUDE.md
+- [x] .claude/skills/commit + .claude/agents/
