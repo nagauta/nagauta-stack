@@ -20,7 +20,6 @@
 | テスト | Vitest + Playwright |
 | CI/CD | GitHub Actions |
 | 依存更新 | Renovate |
-| 未使用検出 | Knip |
 
 
 ## モノレポ構成
