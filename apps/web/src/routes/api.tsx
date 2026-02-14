@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod/v4";
-import { db } from "../db";
+import { getDb } from "../db";
 import { examples } from "../db/schema";
 import { ExampleItem } from "../views/partials/example-item";
 
@@ -12,6 +12,7 @@ const createExampleSchema = z.object({
 });
 
 app.get("/examples", async (c) => {
+	const db = getDb();
 	const items = await db.select().from(examples);
 	return c.html(
 		<>
@@ -23,6 +24,7 @@ app.get("/examples", async (c) => {
 });
 
 app.post("/examples", async (c) => {
+	const db = getDb();
 	const body = await c.req.parseBody();
 	const parsed = createExampleSchema.safeParse(body);
 	if (!parsed.success) {
@@ -40,6 +42,7 @@ app.post("/examples", async (c) => {
 });
 
 app.delete("/examples/:id", async (c) => {
+	const db = getDb();
 	const id = c.req.param("id");
 	await db.delete(examples).where(eq(examples.id, id));
 	return c.body(null, 200);
